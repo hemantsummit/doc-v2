@@ -16,15 +16,15 @@ import json
 from torchmetrics import Accuracy
 import logging
 # Create and configure logger
-logging.basicConfig(filename="newfile.log",
-                    format='%(asctime)s %(message)s',
-                    filemode='w')
+# logging.basicConfig(filename="newfile.log",
+#                     format='%(asctime)s %(message)s',
+#                     filemode='w')
  
-# Creating an object
-logger = logging.getLogger()
+# # Creating an object
+# logger = logging.getLogger()
  
-# Setting the threshold of logger to DEBUG
-logger.setLevel(logging.DEBUG)
+# # Setting the threshold of logger to DEBUG
+# logger.setLevel(logging.DEBUG)
 
 
 image_paths = sorted(list(Path("images").glob("*/*.jpg")))
@@ -146,10 +146,10 @@ class ModelModule(pl.LightningModule):
         )
         loss = outputs.loss
         self.log("train_loss", loss)
-        logger.info("train_loss", loss)
+        # logger.info("train_loss", loss)
         self.train_accuracy(outputs.logits, labels)
         self.log("train_accuracy", self.train_accuracy, on_step=True, on_epoch=True)
-        logger.info("train_accuracy", self.train_accuracy, on_step=True, on_epoch=True)
+        # logger.info("train_accuracy", self.train_accuracy, on_step=True, on_epoch=True)
         return loss
     
     def validation_step(self, batch, batch_idx):
@@ -163,10 +163,10 @@ class ModelModule(pl.LightningModule):
         )
         loss = outputs.loss
         self.log("val_loss", loss) 
-        logger.info("val_loss", loss)
+        # logger.info("val_loss", loss)
         self.val_accuracy(outputs.logits, labels)
         self.log("val_accuracy", self.val_accuracy, on_step=False, on_epoch=True)
-        logger.info("val_accuracy", self.val_accuracy, on_step=False, on_epoch=True)
+        # logger.info("val_accuracy", self.val_accuracy, on_step=False, on_epoch=True)
         return loss
     
     def configure_optimizers(self):
