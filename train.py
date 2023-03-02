@@ -36,10 +36,10 @@ processor = LayoutLMv3Processor(feature_extractor, tokenizer)
 
 def scale_bounding_box(box: List[int], width_scale: float, height_scale: float) -> List[int]:
     return [
-        int(box[0] * width_scale),
-        int(box[1] * height_scale),
-        int(box[2] * width_scale),
-        int(box[3] * height_scale)
+        int(box[0] * width_scale)%1000,
+        int(box[1] * height_scale)%1000,
+        int(box[2] * width_scale)%1000,
+        int(box[3] * height_scale)%1000
     ]
 
 
@@ -71,7 +71,7 @@ class DocumentClassificationDataset(Dataset):
         words = []
         boxes = []
         for row in ocr_result:
-            boxes.append(row["bounding_box"])
+            boxes.append(scale_bounding_box(row["bounding_box"], width_scale, height_scale))
             words.append(row["word"])
             
     
