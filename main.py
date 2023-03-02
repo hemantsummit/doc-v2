@@ -29,8 +29,8 @@ for root, dirs, files in os.walk(input_folder):
 
             # Loop through each detected text and add it to the dictionary
             for text in result[0]:
-                top = max(text[0][0][1],text[0][1][1],text[0][2][1],text[0][3][1])
-                bottom = min(text[0][0][1],text[0][1][1],text[0][2][1],text[0][3][1])
+                top = min(text[0][0][1],text[0][1][1],text[0][2][1],text[0][3][1])
+                bottom = max(text[0][0][1],text[0][1][1],text[0][2][1],text[0][3][1])
                 left = min(text[0][0][0],text[0][1][0],text[0][2][0],text[0][3][0])
                 right = max(text[0][0][0],text[0][1][0],text[0][2][0],text[0][3][0])
                 results_dict.append({
