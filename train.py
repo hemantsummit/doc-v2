@@ -65,13 +65,13 @@ class DocumentClassificationDataset(Dataset):
         with json_path.open("r") as f:
             ocr_result = json.load(f)
             
-        width_scale = (1000/width)
-        height_scale = (1000/height)
+        width_scale = (1000/width)%1000
+        height_scale = (1000/height)%1000
         
         words = []
         boxes = []
         for row in ocr_result:
-            boxes.append(scale_bounding_box(row["bounding_box"], width_scale, height_scale))
+            boxes.append(row["bounding_box"])
             words.append(row["word"])
             
     
