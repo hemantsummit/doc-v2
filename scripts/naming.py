@@ -16,7 +16,7 @@ random.shuffle(file_list)
 # Loop over each image file and rename it with a new unique name
 for i, filename in enumerate(file_list):
     # Generate a new unique filename
-    new_filename = 'others_{:04d}.jpg'.format(i+1)
+    new_filename = 'form_1040_{:03d}.jpg'.format(i+1)
 
     # Set the path to the input and output files
     input_path = os.path.join(input_folder, filename)

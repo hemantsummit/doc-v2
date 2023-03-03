@@ -53,7 +53,7 @@ def rotation(folder_path):
         img = tf.expand_dims(load_img, 0)
 
         # create image data augmentation with rotation range 0-10 degrees
-        datagen = ImageDataGenerator(rotation_range=10)
+        datagen = ImageDataGenerator(rotation_range=3)
 
         it = datagen.flow(img, batch_size=1)
         
@@ -89,7 +89,7 @@ def brightness(folder_path):
         load_img = cv2.imread(os.path.join(folder_path, filename))
         img = tf.expand_dims(load_img, 0)
 
-        datagen = ImageDataGenerator(brightness_range=[0.1,1])
+        datagen = ImageDataGenerator(brightness_range=[0.1,0.5])
 
         it = datagen.flow(img, batch_size=1)
         
@@ -108,7 +108,7 @@ def noise(folder_path):
         img = tf.expand_dims(load_img, 0)
 
         # Noise
-        noise = random_noise(load_img, mode='s&p', amount=0.2)
+        noise = random_noise(load_img, mode='s&p', amount=0.05)
         noise = np.array(255*noise, dtype = 'uint8')
 
         shifted_filename = os.path.join(folder_path, filename)
@@ -137,4 +137,4 @@ def saturation(folder_path):
 
 # folder_path_format -> C:/Users/HYadav/Desktop/Folder
 
-noise("./before")
+brightness("./before")
