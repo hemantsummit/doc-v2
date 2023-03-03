@@ -34,13 +34,13 @@ feature_extractor = LayoutLMv3FeatureExtractor(apply_ocr=False)
 tokenizer = LayoutLMv3TokenizerFast.from_pretrained("microsoft/layoutlmv3-base")
 processor = LayoutLMv3Processor(feature_extractor, tokenizer)
 
-# def scale_bounding_box(box: List[int], width_scale: float, height_scale: float) -> List[int]:
-#     return [
-#         int(box[0] * width_scale)%1000,
-#         int(box[1] * height_scale)%1000,
-#         int(box[2] * width_scale)%1000,
-#         int(box[3] * height_scale)%1000
-#     ]
+def scale_bounding_box(box: List[int], width_scale: float, height_scale: float) -> List[int]:
+    return [
+        int(box[0] * width_scale)%1000,
+        int(box[1] * height_scale)%1000,
+        int(box[2] * width_scale)%1000,
+        int(box[3] * height_scale)%1000
+    ]
 
 
 
@@ -65,13 +65,13 @@ class DocumentClassificationDataset(Dataset):
         with json_path.open("r") as f:
             ocr_result = json.load(f)
             
-        width_scale = (1000/width)
-        height_scale = (1000/height)
+        width_scale = (1000/width)%1000
+        height_scale = (1000/height)%1000
         
         words = []
         boxes = []
         for row in ocr_result:
-            boxes.append(row["bounding_box"])
+            boxes.append(scale_bounding_box(row["bounding_box"], width_scale, height_scale))
             words.append(row["word"])
             
     
@@ -186,7 +186,7 @@ trainer = pl.Trainer(
     accelerator="gpu",
     precision=16,
     devices=1,
-    max_epochs=20,
+    max_epochs=4,
     callbacks=[
         model_checkpoint
     ]
