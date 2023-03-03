@@ -186,7 +186,7 @@ trainer = pl.Trainer(
     accelerator="gpu",
     precision=16,
     devices=1,
-    max_epochs=4,
+    max_epochs=20,
     callbacks=[
         model_checkpoint
     ]
