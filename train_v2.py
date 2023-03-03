@@ -186,7 +186,7 @@ trainer = pl.Trainer(
     accelerator="gpu",
     precision=16,
     devices=1,
-    max_epochs=4,
+    max_epochs=20,
     callbacks=[
         model_checkpoint
     ]
@@ -204,5 +204,5 @@ trained_model = ModelModule.load_from_checkpoint(
 
 trained_model.model.save_pretrained(Path("best-model"))
 
-trained_model.model.push_to_hub("layoutlmv3-document-classification-v2")
+trained_model.model.push_to_hub("layoutlmv3-document-classification-v3")
 
